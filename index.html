@@ -407,6 +407,7 @@ function renderShowcase(apps) {
       links: (Array.isArray(s.links) ? s.links : []).filter(l => l && isUrl(l.url)),
       repoUrl: a.repoUrl,
       showSource: s.showSource !== false,
+      button: (typeof s.buttonText === 'string' && s.buttonText.trim()) || 'Open app',
     };
   }).filter(i => i.main || i.links.length);
 
@@ -429,7 +430,7 @@ function renderShowcase(apps) {
             ${i.desc ? `<p class="desc showcase-desc">${esc(i.desc)}</p>` : ''}
             ${i.main ? `
             <div class="actions">
-              <a class="btn-primary" href="${esc(i.main)}" target="_blank" rel="noopener">Open app</a>
+              <a class="btn-primary" href="${esc(i.main)}" target="_blank" rel="noopener">${esc(i.button)}</a>
               <button class="copy" data-url="${esc(i.main)}">Copy link</button>
               ${i.showSource ? `<a class="gh-link" href="${esc(i.repoUrl)}" target="_blank" rel="noopener">Source ↗</a>` : ''}
             </div>` : ''}
