@@ -579,5 +579,19 @@ $('refresh').addEventListener('click', () => refresh(true));
   refresh(false);
 })();
 </script>
+<script>
+  // Visitor counting (GoatCounter). Records the site address with each page so every app shows separately.
+  window.goatcounter = { path: function (p) { return location.host + p } };
+  // Count clicks on "Open app", "Download" and "Also available" links.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.btn-primary, ul.pages a.page');
+    if (!a || !window.goatcounter || !window.goatcounter.count) return;
+    var card = a.closest('.card');
+    var app = card && card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.trim() : 'Other';
+    var label = (a.querySelector('.label') || a).textContent.trim();
+    window.goatcounter.count({ path: 'click: ' + app + ' - ' + label, title: a.href, event: true });
+  });
+</script>
+<script data-goatcounter="https://mountytech.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
